@@ -25,7 +25,8 @@ supabase-server/
 │       └── supabase.d.ts     # Type definitions
 ├── package.json
 ├── tsconfig.json
-└── .env.example
+├── config.json.example       # Example configuration file
+└── .env.example             # Environment variables template
 ```
 
 ### Key Components
@@ -69,10 +70,120 @@ SUPABASE_KEY=your_service_role_key_here
 SUPABASE_ACCESS_TOKEN=your_access_token_here  # Required for management operations
 ```
 
-5. Build the server:
+5. Create server configuration:
+```bash
+cp config.json.example config.json
+```
+
+6. Build the server:
 ```bash
 npm run build
 ```
+
+## Configuration
+
+The server supports extensive configuration through both environment variables and a config.json file. Here's a detailed breakdown of the configuration options:
+
+### Server Configuration
+```json
+{
+  "server": {
+    "name": "supabase-server",    // Server name
+    "version": "0.1.0",           // Server version
+    "port": 3000,                 // Port number (if running standalone)
+    "host": "localhost"           // Host address (if running standalone)
+  }
+}
+```
+
+### Supabase Configuration
+```json
+{
+  "supabase": {
+    "project": {
+      "url": "your_project_url",
+      "key": "your_service_role_key",
+      "accessToken": "your_access_token"
+    },
+    "storage": {
+      "defaultBucket": "public",           // Default storage bucket
+      "maxFileSize": 52428800,            // Max file size in bytes (50MB)
+      "allowedMimeTypes": [               // Allowed file types
+        "image/*",
+        "application/pdf",
+        "text/*"
+      ]
+    },
+    "database": {
+      "maxConnections": 10,               // Max DB connections
+      "timeout": 30000,                   // Query timeout in ms
+      "ssl": true                         // SSL connection
+    },
+    "auth": {
+      "autoConfirmUsers": false,          // Auto-confirm new users
+      "disableSignup": false,             // Disable public signups
+      "jwt": {
+        "expiresIn": "1h",               // Token expiration
+        "algorithm": "HS256"              // JWT algorithm
+      }
+    }
+  }
+}
+```
+
+### Logging Configuration
+```json
+{
+  "logging": {
+    "level": "info",                      // Log level
+    "format": "json",                     // Log format
+    "outputs": ["console", "file"],       // Output destinations
+    "file": {
+      "path": "logs/server.log",          // Log file path
+      "maxSize": "10m",                   // Max file size
+      "maxFiles": 5                       // Max number of files
+    }
+  }
+}
+```
+
+### Security Configuration
+```json
+{
+  "security": {
+    "cors": {
+      "enabled": true,
+      "origins": ["*"],
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "allowedHeaders": ["Content-Type", "Authorization"]
+    },
+    "rateLimit": {
+      "enabled": true,
+      "windowMs": 900000,                 // 15 minutes
+      "max": 100                          // Max requests per window
+    }
+  }
+}
+```
+
+### Monitoring Configuration
+```json
+{
+  "monitoring": {
+    "enabled": true,
+    "metrics": {
+      "collect": true,
+      "interval": 60000                   // Collection interval in ms
+    },
+    "health": {
+      "enabled": true,
+      "path": "/health"                   // Health check endpoint
+    }
+  }
+}
+```
+
+See `config.json.example` for a complete example configuration file.
 
 ## MCP Integration
 
@@ -88,7 +199,8 @@ Add the server to your MCP settings (cline_mcp_settings.json):
         "SUPABASE_URL": "your_project_url",
         "SUPABASE_KEY": "your_service_role_key",
         "SUPABASE_ACCESS_TOKEN": "your_access_token"
-      }
+      },
+      "config": "path/to/config.json"  // Optional: path to configuration file
     }
   }
 }
