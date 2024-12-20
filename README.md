@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server that provides comprehensive tools for interacting with Supabase databases, storage, and edge functions. This server enables seamless integration between Supabase services and MCP-compatible applications.
 
+<a href="https://glama.ai/mcp/servers/vwi6nt8i80"><img width="380" height="200" src="https://glama.ai/mcp/servers/vwi6nt8i80/badge" alt="supabase-mcp MCP server" /></a>
+
 ## Overview
 
 The Supabase MCP server acts as a bridge between MCP clients and Supabase's suite of services, providing:
