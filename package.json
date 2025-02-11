@@ -7,11 +7,15 @@
     "start": "node build/index.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.6.0",
+    "@modelcontextprotocol/sdk": "^0.6.1",
     "@supabase/supabase-js": "^2.39.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/node": "^20.11.5"
   }
 }
