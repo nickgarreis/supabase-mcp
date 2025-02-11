@@ -76,7 +76,19 @@ class SupabaseServer {
       
       return {
         tools: [
-          // ... (keeping all existing tool definitions)
+          {
+            name: 'list_tables',
+            description: 'List all tables in the database',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                schema: {
+                  type: 'string',
+                  description: 'Schema name (optional, defaults to public)',
+                },
+              },
+            },
+          },
           {
             name: 'create_record',
             description: 'Create a new record in a Supabase table',
@@ -154,7 +166,40 @@ class SupabaseServer {
               ],
             };
           }
-          // ... (all other existing tool implementations remain the same)
+          case 'list_tables': {
+            const schema = (typedArgs.schema as string) || 'public';
+            const { data, error } = await this.supabase
+              .rpc('list_tables', { p_schema: schema })
+              .select();
+
+            if (error) {
+              // If RPC fails (likely because function doesn't exist), fall back to direct query
+              const { data: fallbackData, error: fallbackError } = await this.supabase
+                .from('information_schema.tables')
+                .select('table_name')
+                .eq('table_schema', schema)
+                .eq('table_type', 'BASE TABLE');
+
+              if (fallbackError) throw fallbackError;
+              return {
+                content: [
+                  {
+                    type: 'text',
+                    text: JSON.stringify(fallbackData?.map(row => row.table_name) || [], null, 2),
+                  },
+                ],
+              };
+            }
+
+            return {
+              content: [
+                {
+                  type: 'text',
+                  text: JSON.stringify(data || [], null, 2),
+                },
+              ],
+            };
+          }
           default:
             throw new McpError(
               ErrorCode.MethodNotFound,
@@ -182,6 +227,8 @@ class SupabaseServer {
     switch (name) {
       case 'create_record':
         return `Create record in table '${args.table}' with data: ${JSON.stringify(args.data)}`;
+      case 'list_tables':
+        return `List tables in schema '${args.schema || 'public'}'`;
       case 'read_records':
         return `Read records from table '${args.table}'${args.filter ? ` with filter: ${JSON.stringify(args.filter)}` : ''}`;
       // ... (add descriptions for other tools)
