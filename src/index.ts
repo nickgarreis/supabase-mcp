@@ -476,7 +476,23 @@ class SupabaseServer {
               .select();
 
             if (error) {
-              // If RPC fails (likely because function doesn't exist), fall back to direct query
+              // If RPC fails, try table_list view
+              const { data: viewData, error: viewError } = await this.supabase
+                .from('table_list')
+                .select('table_name');
+
+              if (!viewError) {
+                return {
+                  content: [
+                    {
+                      type: 'text',
+                      text: JSON.stringify(viewData?.map(row => row.table_name) || [], null, 2),
+                    },
+                  ],
+                };
+              }
+
+              // If view doesn't exist, fall back to direct query
               const { data: fallbackData, error: fallbackError } = await this.supabase
                 .from('information_schema.tables')
                 .select('table_name')
