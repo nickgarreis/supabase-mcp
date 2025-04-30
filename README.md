@@ -497,15 +497,7 @@ npm run build
 npm run lint
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## Running evals 
+### Running evals 
 
 The evals package loads an mcp client that then runs the index.ts file, so there is no need to rebuild between tests. You can load environment variables by prefixing the npx command. Full documentation can be found [here](https://www.mcpevals.io/docs).
 
@@ -513,6 +505,13 @@ The evals package loads an mcp client that then runs the index.ts file, so there
 OPENAI_API_KEY=your-key  npx mcp-eval src/evals/evals.ts src/index.ts
 ```
 
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
