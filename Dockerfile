@@ -29,9 +29,9 @@ COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/package.json /app/package.json
 
 # Environment variables required by the application
-ENV SUPABASE_URL=your_project_url_here
-ENV SUPABASE_KEY=your_service_role_key_here
-ENV SUPABASE_ACCESS_TOKEN=your_access_token_here
+ENV SUPABASE_URL=https://pkvnfcxdodzwbvcxkmxj.supabase.co
+ENV SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBrdm5mY3hkb2R6d2J2Y3hrbXhqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTI4MzI5OSwiZXhwIjoyMDY2ODU5Mjk5fQ.TnW_d3ekcNi3uNaWrympT37qjvG2V_p0pl-MdpCffWs
+ENV SUPABASE_ACCESS_TOKEN=sbp_59f678d2cbe7369517656b373b03744f37501449
 
 # Expose the necessary port
 EXPOSE 3000
