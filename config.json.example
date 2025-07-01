@@ -3,13 +3,13 @@
     "name": "supabase-server",
     "version": "0.1.0",
     "port": 3000,
-    "host": "localhost"
+    "host": "0.0.0.0"
   },
   "supabase": {
     "project": {
-      "url": "your_project_url",
-      "key": "your_service_role_key",
-      "accessToken": "your_access_token"
+      "url": "https://pkvnfcxdodzwbvcxkmxj.supabase.co",
+      "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…",        <!-- service_role key -->
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…"  <!-- same secret -->
     },
     "storage": {
       "defaultBucket": "public",
@@ -76,3 +76,4 @@
     }
   }
 }
+
