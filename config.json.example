@@ -8,8 +8,8 @@
   "supabase": {
     "project": {
       "url": "https://pkvnfcxdodzwbvcxkmxj.supabase.co",
-      "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…",        <!-- service_role key -->
-      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…"  <!-- same secret -->
+      "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…" 
     },
     "storage": {
       "defaultBucket": "public",
